@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HackComrade - Login / Signup</title>
+
+  <!-- Creepster font -->
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet" />
+  
+  <!-- Firebase App (core SDK) v8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <!-- Firebase Authentication -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+  <style>
+    :root {
+      --beige: #f5f0e6;
+      --light-bg: var(--beige);
+      --light-text: #333;
+      --brown: #4B2E05; /* Dark Brown */
+      --brown-hover: #6b4220; /* Lighter brown on hover */
+      --glow-color: rgba(165, 120, 80, 0.5); /* Warm light brown glow */
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--light-text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+
+      /* Subtle background texture */
+       background-color: #f5f0e6;
+        background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239c8118' fill-opacity='0.2'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+  
+        filter: drop-shadow(0px 8px 18px rgba(0, 100, 255, 0.25)) 
+          drop-shadow(0px 4px 8px rgba(255, 255, 100, 0.15)); 
+}
+    .container-wrapper {
+      position: relative;
+      width: 360px;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow:
+        0 0 15px 4px rgba(165, 120, 80, 0.4),
+        0 0 30px 10px rgba(165, 120, 80, 0.25);
+      animation: fadeInUp 0.8s ease forwards;
+      background: transparent;
+      background-color: var(--light-bg); /* Prevents texture overlay */
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-image {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 18px;
+      object-fit: contain;
+      user-select: none;
+    }
+
+    .logo-text {
+      font-family: 'Creepster', cursive;
+      font-weight: 700;
+      font-size: 2.4rem;
+      letter-spacing: 3px;
+      user-select: none;
+    }
+
+    .logo-text .hack {
+      color: var(--brown);
+    }
+
+    .logo-text .comrade {
+      color: #A9746E; /* Lighter Brown */
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: left;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+      color: var(--brown);
+      user-select: none;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      padding: 10px 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1.5px solid #ccc;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: var(--brown);
+      outline: none;
+      box-shadow: 0 0 8px var(--brown);
+    }
+
+    /* Show/hide password toggle buttons inside input */
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--brown);
+      opacity: 0.7;
+      font-size: 18px;
+      padding: 0;
+      user-select: none;
+    }
+
+    button[type="submit"] {
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: var(--brown);
+      color: white;
+      transition: background-color 0.3s, box-shadow 0.1s;
+      box-shadow: none;
+      margin-top: 10px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: var(--brown-hover);
+      box-shadow: none;
+    }
+
+    button[type="submit"]:active {
+      box-shadow: 0 0 10px 4px var(--glow-color);
+      background-color: var(--brown-hover);
+    }
+
+    /* Google button - only icon, centered */
+    .google-btn {
+      margin: 20px auto 0;
+      background-color: white;
+      color: #444;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1.5px solid #ddd;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      box-shadow: none;
+    }
+
+    .google-btn:hover {
+      background-color: #fff8f0;
+      box-shadow: 0 0 12px 3px var(--glow-color);
+    }
+
+    .google-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Toggle mode link */
+    #toggle-mode {
+      margin-top: 18px;
+      display: block;
+      color: var(--brown-hover);
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      text-align: center;
+      background: none;
+      border: none;
+      font-size: 0.9rem;
+      text-decoration: underline;
+      padding: 0;
+      transition: color 0.3s;
+    }
+
+    #toggle-mode:hover {
+      color: var(--brown);
+    }
+
+    /* Custom modal styles */
+    #modal {
+      display: none; /* hidden by default */
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(245, 240, 230, 0.85);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #modal.dark {
+      background: rgba(30, 30, 30, 0.85);
+    }
+
+    #modal-content {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      max-width: 300px;
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      position: relative;
+      animation: fadeInScale 0.3s ease forwards;
+    }
+
+    #modal.dark #modal-content {
+      background: #1e1e1e;
+      color: #f5f5f5;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+    }
+
+    #modal button.close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: inherit;
+      font-weight: 700;
+    }
+
+    /* Animations */
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+     }
+
+     @keyframes shake {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      20%, 60% {
+        transform: translateX(-10px);
+      }
+      40%, 80% {
+        transform: translateX(10px);
+      }
+     }
+
+       .shake {
+      animation: shake 0.4s ease;
+     }
+
+         /* Floating chatbot */
+       .floating-chatbot {
+         position: fixed;
+         bottom: 25px;  
+         right: 55px;   
+        width: 200px;
+         height: 250px; 
+         z-index: 9999;
+         animation: float 3s ease-in-out infinite;
+         cursor: pointer;
+         user-select: none;
+         filter: drop-shadow(0px 8px 18px rgba(0, 100, 255, 0.25)) 
+          drop-shadow(0px 4px 8px rgba(255, 255, 100, 0.15)); 
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container-wrapper">
+    <div class="container">
+      <div class="logo-wrapper">
+        <img class="logo-image" src="logo.png" alt="Custom Logo" />
+        <div class="logo-text">
+          <span class="hack">Hack</span><span class="comrade">Comrade</span>
+        </div>
+      </div>
+
+      <form id="auth-form" novalidate>
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="Email" required aria-required="true" />
+
+        <label for="password">Password</label>
+        <div style="position: relative;">
+          <input
+            type="password"
+            id="password"
+            placeholder="Password (6 characters)"
+            required
+            aria-required="true"
+            minlength="6"
+            style="padding-right: 36px;"
+          />
+          <button
+            type="button"
+            class="toggle-password"
+            aria-label="Show password"
+            title="Show/hide password"
+          >
+          </button>
+        </div>
+
+        <div
+          id="confirm-password-wrapper"
+          style="position: relative; display: none; margin-top: 14px;"
+        >
+          <label for="confirm-password">Confirm Password</label>
+          <div style="position: relative;">
+            <input
+              type="password"
+              id="confirm-password"
+              placeholder="Confirm Password"
+              minlength="6"
+              style="padding-right: 36px;"
+            />
+            <button
+              type="button"
+              class="toggle-password confirm-toggle"
+              aria-label="Show confirm password"
+              title="Show/hide confirm password"
+            >
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="submit-btn">Continue</button>
+      </form>
+
+      <button id="toggle-mode" aria-label="Switch to sign up or login">
+        Don't have an account? Sign Up
+      </button>
+
+      <button class="google-btn" id="google-login" aria-label="Sign in with Google" title="Sign in with Google">
+        <img class="google-icon" src="https://img.favpng.com/2/20/9/google-logo-google-search-search-engine-optimization-google-images-png-favpng-mrjKbWHacks0WiKXmVVZugyri.jpg" alt="Google Logo" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Floating chatbot -->
+  <img src="chatbot.png" alt="Chatbot" class="floating-chatbot" />
+
+  <!-- Custom modal for alerts -->
+  <div id="modal">
+    <div id="modal-content">
+      <button class="close-btn" aria-label="Close modal">&times;</button>
+      <p id="modal-message"></p>
+    </div>
+  </div>
+
+  <script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA7hWS-We4o-l_qcB0oAL_m2PAwwCyvyt8",
+      authDomain: "hackathon-2be2d.firebaseapp.com",
+      projectId: "hackathon-2be2d",
+      storageBucket: "hackathon-2be2d.firebasestorage.app",
+      messagingSenderId: "734876539576",
+      appId: "1:734876539576:web:301198c2516944f3ae324d"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('modal');
+      const modalMessage = document.getElementById('modal-message');
+      const closeBtn = modal.querySelector('.close-btn');
+
+      // Show modal with message function
+      function showModal(message) {
+        modalMessage.textContent = message;
+        modal.style.display = 'flex';
+      }
+
+      closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+
+      // Elements
+      const authForm = document.getElementById('auth-form');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordWrapper = document.getElementById('confirm-password-wrapper');
+      const confirmPasswordInput = document.getElementById('confirm-password');
+      const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+      const toggleModeBtn = document.getElementById('toggle-mode');
+      const submitBtn = document.getElementById('submit-btn');
+      const containerWrapper = document.querySelector('.container-wrapper');
+
+      // Track mode: login or signup
+      let mode = 'login'; // default
+
+      // Toggle password visibility (for both password fields) - exactly like original
+      togglePasswordButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const isConfirmToggle = btn.classList.contains('confirm-toggle');
+          const input = isConfirmToggle ? confirmPasswordInput : passwordInput;
+          if (!input) return;
+
+          if (input.type === 'password') {
+            input.type = 'text';
+            btn.textContent = '🙈'; // eye closed emoji for hide
+            btn.setAttribute('aria-label', 'Hide password');
+            btn.setAttribute('title', 'Hide password');
+          } else {
+            input.type = 'password';
+            btn.textContent = '👁️'; // eye open emoji for show
+            btn.setAttribute('aria-label', 'Show password');
+            btn.setAttribute('title', 'Show password');
+          }
+        });
+      });
+
+      // Toggle login/signup mode
+      toggleModeBtn.addEventListener('click', () => {
+        if (mode === 'login') {
+          mode = 'signup';
+          confirmPasswordWrapper.style.display = 'block';
+          confirmPasswordInput.required = true;
+          toggleModeBtn.textContent = 'Already have an account? Login';
+          submitBtn.textContent = 'Continue';
+        } else {
+          mode = 'login';
+          confirmPasswordWrapper.style.display = 'none';
+          confirmPasswordInput.required = false;
+          toggleModeBtn.textContent = "Don't have an account? Sign Up";
+          submitBtn.textContent = 'Continue';
+        }
+      });
+
+      // Form submission handler
+      authForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+
+        // Basic email validation
+        if (!email) {
+          showModal('Please enter a valid email.');
+          shakeContainer();
+          return;
+        }
+
+        // Password length check (exactly 6)
+        if (password.length !== 6) {
+          showModal('Password must be exactly 6 characters long.');
+          shakeContainer();
+          return;
+        }
+
+        if (mode === 'signup') {
+          if (!confirmPassword) {
+            showModal('Please confirm your password.');
+            shakeContainer();
+            return;
+          }
+          if (password !== confirmPassword) {
+            showModal('Passwords do not match.');
+            shakeContainer();
+            return;
+          }
+        }
+
+        // Firebase authentication using v8 syntax
+        try {
+          if (mode === 'login') {
+            const userCredential = await auth.signInWithEmailAndPassword(email, password);
+            const user = userCredential.user;
+            showModal(`Welcome back! Logged in as ${user.email}`);
+            console.log("User logged in:", user);
+            window.location.href = 'profile.html';  // or the correct path to your profile page
+
+          } else {
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
+            showModal(`Account created successfully! Welcome ${user.email}`);
+            console.log("User signed up:", user);
+          }
+
+          // Clear password fields after success
+          passwordInput.value = '';
+          confirmPasswordInput.value = '';
+        } catch (error) {
+          console.error("Authentication error:", error);
+          let errorMessage = 'Authentication failed. Please try again.';
+          
+          switch (error.code) {
+            case 'auth/user-not-found':
+              errorMessage = 'No account found with this email.';
+              break;
+            case 'auth/wrong-password':
+              errorMessage = 'Incorrect password.';
+              break;
+            case 'auth/email-already-in-use':
+              errorMessage = 'Email already in use.';
+              break;
+            case 'auth/weak-password':
+              errorMessage = 'Password is too weak.';
+              break;
+            case 'auth/invalid-email':
+              errorMessage = 'Invalid email address.';
+              break;
+            default:
+              errorMessage = error.message;
+          }
+          
+          showModal(errorMessage);
+          shakeContainer();
+        }
+      });
+
+      // Shake animation helper
+      function shakeContainer() {
+        containerWrapper.classList.add('shake');
+        containerWrapper.addEventListener(
+          'animationend',
+          () => {
+            containerWrapper.classList.remove('shake');
+          },
+          { once: true }
+        );
+      }
+
+      // Google login button click
+      const googleBtn = document.getElementById('google-login');
+      googleBtn.addEventListener('click', async () => {
+        try {
+          const provider = new firebase.auth.GoogleAuthProvider();
+          const result = await auth.signInWithPopup(provider);
+          
+          const user = result.user;
+          showModal(`Welcome ${user.displayName}! Logged in with Google.`);
+          console.log("Google login successful:", user);
+          
+        } catch (error) {
+          console.error("Google login error:", error);
+          let errorMessage = 'Google login failed. Please try again.';
+          
+          switch (error.code) {
+            case 'auth/popup-closed-by-user':
+              errorMessage = 'Login cancelled by user.';
+              break;
+            case 'auth/popup-blocked':
+              errorMessage = 'Popup was blocked. Please allow popups and try again.';
+              break;
+            case 'auth/cancelled-popup-request':
+              errorMessage = 'Only one popup request is allowed at one time.';
+              break;
+            default:
+              errorMessage = error.message;
+          }
+          
+          showModal(errorMessage);
+          shakeContainer();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,804 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Learning Resources</title>
+
+  <!-- Creepster font -->
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet" />
+  <!-- Cinzel font for headings -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+
+  <style>
+    :root {
+      --beige: #f5f0e6;
+      --light-bg: var(--beige);
+      --light-text: #333;
+      --brown: #4B2E05;
+      --brown-hover: #6b4220;
+      --glow-color: rgba(165, 120, 80, 0.5);
+      --nav-bg: #2c1810;
+      --nav-text: #f5f0e6;
+      --parchment: #f2e6c9;
+      --parchment-dark: #e6d5b3;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--light-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 100% 150%, var(--parchment-dark) 4%, var(--beige) 4%, var(--beige) 8%, var(--parchment-dark) 8%, var(--parchment-dark) 12%, var(--beige) 12%, var(--beige) 86%, var(--parchment-dark) 86%),
+        radial-gradient(circle at 0 150%, var(--parchment-dark) 4%, var(--beige) 4%, var(--beige) 8%, var(--parchment-dark) 8%, var(--parchment-dark) 12%, var(--beige) 12%, var(--beige) 86%, var(--parchment-dark) 86%),
+        radial-gradient(circle at 50% 100%, var(--parchment-dark) 4%, var(--beige) 4%, var(--beige) 8%, var(--parchment-dark) 8%, var(--parchment-dark) 12%, var(--beige) 12%, var(--beige) 86%, var(--parchment-dark) 86%),
+        radial-gradient(circle at 100% 50%, var(--parchment-dark) 4%, var(--beige) 4%, var(--beige) 8%, var(--parchment-dark) 8%, var(--parchment-dark) 12%, var(--beige) 12%, var(--beige) 86%, var(--parchment-dark) 86%),
+        radial-gradient(circle at 0 50%, var(--parchment-dark) 4%, var(--beige) 4%, var(--beige) 8%, var(--parchment-dark) 8%, var(--parchment-dark) 12%, var(--beige) 12%, var(--beige) 86%, var(--parchment-dark) 86%);
+      background-size: 100px 50px;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      background-color: var(--nav-bg);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nav-brand {
+      font-family: 'Creepster', cursive;
+      font-size: 1.8rem;
+      color: var(--nav-text);
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+  align-items: center;
+  margin-left: auto;   
+  padding-right: 20px; 
+}
+
+.nav-links a {
+  color: var(--nav-text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;   
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+    .nav-links a:hover {
+      background-color: var(--brown);
+      color: white;
+    }
+
+    .register-btn {
+      background-color: var(--brown);
+      color: white !important;
+      padding: 0.7rem 1.5rem !important;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .register-btn:hover {
+      background-color: var(--brown-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .page-title {
+      font-family: 'Cinzel', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--brown);
+      margin-bottom: 30px;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Swiper Container */
+    .swiper {
+      width: 100%;
+      height: 100%;
+      padding: 30px 10px 80px;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      opacity: 0.7;
+      transform: scale(0.9);
+      filter: brightness(0.8);
+    }
+
+    .swiper-slide-active {
+      opacity: 1;
+      transform: scale(1);
+      filter: brightness(1);
+      z-index: 2;
+    }
+
+    .swiper-pagination {
+      bottom: 30px;
+    }
+
+    .swiper-pagination-bullet {
+      width: 12px;
+      height: 12px;
+      background: var(--brown);
+      opacity: 0.5;
+    }
+
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+      background: var(--brown);
+    }
+
+    /* Track Card */
+    .track-card {
+      background: var(--parchment);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #d6c8a5;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      height: 500px;
+      max-width: 380px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .track-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(139, 69, 19, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .swiper-slide-active .track-card {
+      transform: translateY(-10px) rotateX(5deg) rotateY(-5deg);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .swiper-slide-active .track-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+      transform: rotate(45deg);
+      animation: shimmer 1.5s linear infinite;
+      z-index: 2;
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%) rotate(45deg);
+      }
+      100% {
+        transform: translateX(100%) rotate(45deg);
+      }
+    }
+
+    .track-number {
+      font-family: 'Creepster', cursive;
+      font-size: 1.5rem;
+      color: var(--brown);
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .track-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      color: var(--brown);
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--brown);
+      padding-bottom: 0.5rem;
+    }
+
+    .track-description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--light-text);
+      margin-top: 1rem;
+      flex-grow: 1;
+    }
+
+    /* Tech Stack Logos */
+    .tech-stack {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tech-logo {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .tech-logo:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .tech-logo i {
+      font-size: 20px;
+    }
+
+    .tech-logo .tooltip {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--brown);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .tech-logo:hover .tooltip {
+      opacity: 1;
+      visibility: visible;
+      bottom: -35px;
+    }
+
+    /* Different colors for different tracks */
+    .swiper-slide:nth-child(1) .track-card {
+      background: linear-gradient(135deg, #ffd7d7 0%, var(--parchment) 100%);
+    }
+
+    .swiper-slide:nth-child(2) .track-card {
+      background: linear-gradient(135deg, #d7ffd7 0%, var(--parchment) 100%);
+    }
+
+    .swiper-slide:nth-child(3) .track-card {
+      background: linear-gradient(135deg, #d7d7ff 0%, var(--parchment) 100%);
+    }
+
+    .swiper-slide:nth-child(4) .track-card {
+      background: linear-gradient(135deg, #fff7d7 0%, var(--parchment) 100%);
+    }
+
+    .swiper-slide:nth-child(5) .track-card {
+      background: linear-gradient(135deg, #d7fff7 0%, var(--parchment) 100%);
+    }
+
+    .swiper-slide:nth-child(6) .track-card {
+      background: linear-gradient(135deg, #f7d7ff 0%, var(--parchment) 100%);
+    }
+
+    /* Tech logo colors */
+    .html-logo {
+      color: #e34f26;
+    }
+    
+    .css-logo {
+      color: #264de4;
+    }
+    
+    .js-logo {
+      color: #f7df1e;
+      background: #000;
+    }
+    
+    .react-logo {
+      color: #61dafb;
+    }
+    
+    .angular-logo {
+      color: #dd0031;
+    }
+    
+    .mongodb-logo {
+      color: #47a248;
+    }
+    
+    .nodejs-logo {
+      color: #339933;
+    }
+    
+    .express-logo {
+      color: #000;
+    }
+    
+    .restapi-logo {
+      color: #ff6b6b;
+    }
+    
+    .kotlin-logo {
+      color: #7f52ff;
+    }
+    
+    .androidstudio-logo {
+      color: #3ddc84;
+    }
+    
+    .jetpack-logo {
+      color: #4285f4;
+    }
+    
+    .gradle-logo {
+      color: #02303a;
+    }
+    
+    .blockchain-logo {
+      color: #3c3c3d;
+    }
+    
+    .nextjs-logo {
+      color: #000;
+    }
+    
+    .metamask-logo {
+      color: #f6851b;
+    }
+    
+    .web3js-logo {
+      color: #f16822;
+    }
+    
+    .solidity-logo {
+      color: #363636;
+    }
+    
+    .figma-logo {
+      color: #f24e1e;
+    }
+    
+    .canva-logo {
+      color: #00c4cc;
+    }
+    
+    .tailwind-logo {
+      color: #38bdf8;
+    }
+    
+    .invision-logo {
+      color: #ff3366;
+    }
+    
+    .git-logo {
+      color: #f05032;
+    }
+    
+    .github-logo {
+      color: #000;
+    }
+    
+    .vscode-logo {
+      color: #007acc;
+    }
+    
+    .firebase-logo {
+      color: #ffca28;
+    }
+    
+    .postman-logo {
+      color: #ff6c37;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--nav-bg);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-brand {
+        font-size: 1.4rem;
+      }
+      
+      .main-content {
+        padding: 1rem;
+      }
+      
+      .page-title {
+        font-size: 2rem;
+      }
+      
+      .swiper {
+        padding: 30px 5px 80px;
+      }
+      
+      .track-card {
+        height: 500px;
+        padding: 1.5rem;
+      }
+      
+      .tech-stack {
+        gap: 8px;
+      }
+      
+      .tech-logo {
+        width: 35px;
+        height: 35px;
+      }
+      
+      .tech-logo i {
+        font-size: 18px;
+      }
+      
+      .swiper-button-next, .swiper-button-prev {
+        display: none;
+      }
+      
+      .swiper-slide {
+        opacity: 0.9;
+        transform: scale(0.95);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <a href="#" class="nav-brand">HackComrade</a>
+    </div>
+    
+    <ul class="nav-links" id="navLinks">
+      <li><a href="Team.html">Team</a></li>
+        <li><a href="aipage.html">IdeaHub</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="resources.html">EduZone</a></li>
+    </ul>
+
+    <div class="mobile-menu-toggle" id="mobileToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1 class="page-title">Learning Resources</h1>
+
+    <!-- Swiper slider -->
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <!-- Track 1 - Frontend Development -->
+        <div class="swiper-slide">
+          <div class="track-card">
+            <div class="track-number"># 1</div>
+            <h2 class="track-title">Frontend Development</h2>
+            <p class="track-description">
+              Dive into the world of web development by mastering HTML, CSS, and JavaScript. Create stunning user interfaces and seamless user experiences.
+            </p>
+            <div class="tech-stack">
+              <a href="https://youtu.be/HcOc7P5BMi4?si=KrZhhhF0T3m1FjC0" target="_blank" class="tech-logo html-logo">
+                <i class="fab fa-html5"></i>
+                <span class="tooltip">HTML Tutorial</span>
+              </a>
+              <a href="https://youtu.be/ESnrn1kAD4E?si=Wj38Zxf0xTN9Ezoe" target="_blank" class="tech-logo css-logo">
+                <i class="fab fa-css3-alt"></i>
+                <span class="tooltip">CSS Tutorial</span>
+              </a>
+              <a href="https://youtube.com/playlist?list=PLGjplNEQ1it_oTvuLRNqXfz_v_0pq6unW&si=XDcLa_GxfqsikFbj" target="_blank" class="tech-logo js-logo">
+                <i class="fab fa-js-square"></i>
+                <span class="tooltip">JavaScript Tutorial</span>
+              </a>
+              <a href="https://youtu.be/Ke90Tje7VS0?si=0sDEmlgMsBhGgdlzc" target="_blank" class="tech-logo react-logo">
+                <i class="fab fa-react"></i>
+                <span class="tooltip">React Tutorial</span>
+              </a>
+              <a href="https://youtu.be/k5E2AVpwsko?si=QaI5LTPWjv6TY1gX" target="_blank" class="tech-logo angular-logo">
+                <i class="fab fa-angular"></i>
+                <span class="tooltip">Angular Tutorial</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Track 2 - Backend Development -->
+        <div class="swiper-slide">
+          <div class="track-card">
+            <div class="track-number"># 2</div>
+            <h2 class="track-title">Backend Development</h2>
+            <p class="track-description">
+              Build robust server-side applications and APIs using popular backend technologies. 
+              We are looking for solutions that ensure scalability, security, and performance.
+            </p>
+            <div class="tech-stack">
+              <a href="https://youtu.be/-56x56UppqQ?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo mongodb-logo">
+                <i class="fas fa-database"></i>
+                <span class="tooltip">MongoDB Tutorial</span>
+              </a>
+              <a href="https://youtu.be/TlB_eWDSMt4?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo nodejs-logo">
+                <i class="fab fa-node-js"></i>
+                <span class="tooltip">Node.js Tutorial</span>
+              </a>
+              <a href="https://youtu.be/SccSCuHhOw0?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo express-logo">
+                <i class="fas fa-server"></i>
+                <span class="tooltip">Express.js Tutorial</span>
+              </a>
+              <a href="https://youtu.be/7YcW25PHnAA?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo restapi-logo">
+                <i class="fas fa-code"></i>
+                <span class="tooltip">REST API Tutorial</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Track 3 - Android Development -->
+        <div class="swiper-slide">
+          <div class="track-card">
+            <div class="track-number"># 3</div>
+            <h2 class="track-title">Android Development</h2>
+            <p class="track-description">
+              Build high-quality mobile applications for Android devices. We are looking for innovative solutions that enhance user experience and leverage device capabilities.
+            </p>
+            <div class="tech-stack">
+              <a href="https://youtu.be/F9UC9DY-vIU?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo kotlin-logo">
+                <i class="fas fa-mobile-alt"></i>
+                <span class="tooltip">Kotlin Tutorial</span>
+              </a>
+              <a href="https://youtu.be/4L7-ex1x7_Y?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo androidstudio-logo">
+                <i class="fab fa-android"></i>
+                <span class="tooltip">Android Studio</span>
+              </a>
+              <a href="https://youtu.be/5B6kData5_c?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo jetpack-logo">
+                <i class="fas fa-box"></i>
+                <span class="tooltip">Jetpack Tutorial</span>
+              </a>
+              <a href="https://youtu.be/6WQpTwXh-6k?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo gradle-logo">
+                <i class="fas fa-cogs"></i>
+                <span class="tooltip">Gradle Tutorial</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Track 4 - Web 3.0 -->
+        <div class="swiper-slide">
+          <div class="track-card">
+            <div class="track-number"># 4</div>
+            <h2 class="track-title">Web 3.0</h2>
+            <p class="track-description">
+              Explore the decentralized web with blockchain technology. Create innovative 
+              solutions that leverage smart contracts and decentralized applications.
+            </p>
+            <div class="tech-stack">
+              <a href="https://youtu.be/gyMwXuJrbJQ?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo blockchain-logo">
+                <i class="fas fa-link"></i>
+                <span class="tooltip">Blockchain Tutorial</span>
+              </a>
+              <a href="https://youtu.be/__mSgDEOyv8?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo nextjs-logo">
+                <i class="fas fa-globe"></i>
+                <span class="tooltip">Next.js Tutorial</span>
+              </a>
+              <a href="https://youtu.be/YVgfHZMFFFQ?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo metamask-logo">
+                <i class="fas fa-wallet"></i>
+                <span class="tooltip">MetaMask Tutorial</span>
+              </a>
+              <a href="https://youtu.be/nx710ggnR7o?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo web3js-logo">
+                <i class="fas fa-code"></i>
+                <span class="tooltip">Web3.js Tutorial</span>
+              </a>
+              <a href="https://youtu.be/M576WGiDBdQ?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo solidity-logo">
+                <i class="fas fa-file-contract"></i>
+                <span class="tooltip">Solidity Tutorial</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Track 5 - UI/UX Design -->
+        <div class="swiper-slide">
+          <div class="track-card">
+            <div class="track-number"># 5</div>
+            <h2 class="track-title">UI/UX Design</h2>
+            <p class="track-description">
+              Create user-centered designs that enhance the overall user experience. We are looking for solutions that prioritize usability, accessibility, and aesthetics.
+            </p>
+            <div class="tech-stack">
+              <a href="https://youtu.be/FTFaQWZBqQ8?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo figma-logo">
+                <i class="fab fa-figma"></i>
+                <span class="tooltip">Figma Tutorial</span>
+              </a>
+              <a href="https://youtu.be/4rSJhSN7YxI?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo canva-logo">
+                <i class="fas fa-palette"></i>
+                <span class="tooltip">Canva Tutorial</span>
+              </a>
+              <a href="https://youtu.be/dFgzHOX84xQ?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo tailwind-logo">
+                <i class="fas fa-wind"></i>
+                <span class="tooltip">Tailwind CSS</span>
+              </a>
+              <a href="https://youtu.be/6Vx5VqQqQqQ?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo invision-logo">
+                <i class="fas fa-pencil-alt"></i>
+                <span class="tooltip">InVision Tutorial</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Track 6 - Version Control -->
+        <div class="swiper-slide">
+          <div class="track-card">
+            <div class="track-number"># 6</div>
+            <h2 class="track-title">Developer Tools</h2>
+            <p class="track-description">
+              Master the essential tools for modern development workflows. Learn version control, 
+              code editing, API testing, and deployment platforms used by professionals.
+            </p>
+            <div class="tech-stack">
+              <a href="https://youtu.be/USjZcfj8yxE?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo git-logo">
+                <i class="fab fa-git-alt"></i>
+                <span class="tooltip">Git Tutorial</span>
+              </a>
+              <a href="https://youtu.be/RGOj5yH7evk?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo github-logo">
+                <i class="fab fa-github"></i>
+                <span class="tooltip">GitHub Tutorial</span>
+              </a>
+              <a href="https://youtu.be/VqCgcpAypFQ?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo vscode-logo">
+                <i class="fas fa-code"></i>
+                <span class="tooltip">VS Code Tutorial</span>
+              </a>
+              <a href="https://youtu.be/9kRgVxULbag?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo firebase-logo">
+                <i class="fas fa-fire"></i>
+                <span class="tooltip">Firebase Tutorial</span>
+              </a>
+              <a href="https://youtu.be/VywxIQ2ZXw4?si=9C4_1JZJZJZJZJZJ" target="_blank" class="tech-logo postman-logo">
+                <i class="fas fa-paper-plane"></i>
+                <span class="tooltip">Postman Tutorial</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Navigation buttons -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  
+  <script>
+    // Initialize Swiper with centered active slide
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 'auto',
+      centeredSlides: true,
+      spaceBetween: 30,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 1.5,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 2.5,
+          spaceBetween: 30,
+        },
+        1200: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+      },
+
+      slideToClickedSlide: true,
+
+    });
+
+    // Mobile menu toggle functionality
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    mobileToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on links
+    navLinks.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        navLinks.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>

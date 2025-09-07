@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Complete Your Profile - HackComrade</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --beige: #e9eed0;
+            --light-bg: var(--beige);
+            --light-text: #333;
+            --brown: #4B2E05;
+            --brown-hover: #6b4220;
+            --light-brown: #A9746E;
+            --nav-brown: #3A2408; /* Dark brown for navigation */
+            --nav-light-brown: #D4B896; /* Light brown for nav text */
+            --glow-color: rgba(165, 120, 80, 0.5);
+            --selected-bg: #d4b896;
+            --selected-border: var(--brown);
+            
+            /* Dark theme variables */
+            --dark-bg: #1a1a1a;
+            --dark-text: #f0f0f0;
+            --dark-section-bg: #2d2d2d;
+            --dark-border: #444;
+            --dark-brown: #b08d57;
+            --dark-brown-hover: #d4b896;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #e8dcc6 100%);
+            color: var(--light-text);
+            min-height: 100vh;
+            width: 100vw;
+            padding: 0 0 40px 0;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            box-sizing: border-box;
+        }
+
+        body.dark-theme {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #2d2d2d 100%);
+            color: var(--dark-text);
+        }
+
+        .container {
+            max-width: 100%;
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .header {
+            display: none;
+        }
+
+        /* Navigation Bar - DARK BROWN */
+        .main-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            margin: 0;
+            background: var(--nav-brown); /* Dark brown background */
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            box-sizing: border-box;
+            transition: background-color 0.5s ease, border-color 0.5s ease;
+        }
+
+        .dark-theme .main-nav {
+            background: #2A1D0C; /* Even darker brown for dark theme */
+            border-bottom: 1px solid #333;
+        }
+
+        .nav-brand {
+            font-family: 'Creepster', cursive;
+            font-size: 1.8rem;
+            color: var(--nav-light-brown); /* Light brown text */
+            letter-spacing: 1px;
+            transition: color 0.5s ease;
+        }
+
+        .dark-theme .nav-brand {
+            color: var(--dark-brown);
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: var(--nav-light-brown); /* Light brown text */
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: color 0.3s;
+        }
+
+        .dark-theme .nav-links li a {
+            color: var(--dark-brown);
+        }
+
+        .nav-links li a:hover {
+            color: white; /* White on hover */
+        }
+
+        .dark-theme .nav-links li a:hover {
+            color: var(--dark-brown-hover);
+        }
+
+        /* Header Content */
+        .centered-header-content {
+            text-align: center;
+            margin: 30px 0 50px 0;
+            padding: 0 20px;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .centered-header-content h1 {
+            font-family: 'Creepster', cursive;
+            font-size: 2.8rem;
+            color: var(--brown);
+            margin: 0 0 10px 0;
+            letter-spacing: 2px;
+            position: relative;
+            transition: color 0.5s ease;
+        }
+
+        .dark-theme .centered-header-content h1 {
+            color: var(--dark-brown);
+        }
+
+        .centered-header-content h1::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: var(--brown);
+            border-radius: 2px;
+            transition: background 0.5s ease;
+        }
+
+        .dark-theme .centered-header-content h1::after {
+            background: var(--dark-brown);
+        }
+
+        .centered-header-content p {
+            font-size: 1.1rem;
+            color: var(--light-brown);
+            margin: 0;
+            transition: color 0.5s ease;
+        }
+
+        .dark-theme .centered-header-content p {
+            color: var(--dark-brown);
+        }
+
+        /* Form Section Styling - Enhanced Separation */
+        .form-section {
+            margin: 0 auto 50px auto;
+            max-width: 1200px;
+            padding: 30px;
+            background: rgba(210, 190, 160, 0.4);
+            border-radius: 15px;
+            border: 1px solid rgba(165, 120, 80, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .dark-theme .form-section {
+            background: var(--dark-section-bg);
+            border: 1px solid var(--dark-border);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .dark-theme .form-section:hover {
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Section divider line */
+        .form-section::after {
+            content: "";
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--brown), transparent);
+            transition: background 0.5s ease;
+        }
+
+        .dark-theme .form-section::after {
+            background: linear-gradient(90deg, transparent, var(--dark-brown), transparent);
+        }
+
+        /* Remove divider from last section */
+        .form-section:last-of-type::after {
+            display: none;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brown);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.5s ease;
+        }
+
+        .dark-theme .section-title {
+            color: var(--dark-brown);
+        }
+
+        .section-title::before {
+            content: "";
+            width: 4px;
+            height: 25px;
+            background: var(--brown);
+            border-radius: 2px;
+            transition: background 0.5s ease;
+        }
+
+        .dark-theme .section-title::before {
+            background: var(--dark-brown);
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--light-brown);
+            font-weight: normal;
+            text-transform: none;
+            letter-spacing: normal;
+            transition: color 0.5s ease;
+        }
+
+        .dark-theme .section-subtitle {
+            color: var(--dark-brown);
+        }
+
+        .section-description {
+            font-size: 1rem;
+            color: var(--light-brown);
+            margin-bottom: 20px;
+            font-style: italic;
+            line-height: 1.4;
+            transition: color 0.5s ease;
+        }
+
+        .dark-theme .section-description {
+            color: var(--dark-brown);
+        }
+
+        .skills-grid, .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .skill-item, .interest-item {
+            padding: 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-theme .skill-item, .dark-theme .interest-item {
+            background: #3a3a3a;
+            border-color: #555;
+            color: #eee;
+        }
+
+        .skill-item::before, .interest-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(165, 120, 80, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .dark-theme .skill-item::before, .dark-theme .interest-item::before {
+            background: linear-gradient(90deg, transparent, rgba(176, 141, 87, 0.2), transparent);
+        }
+
+        .skill-item:hover::before, .interest-item:hover::before {
+            left: 100%;
+        }
+
+        .skill-item:hover, .interest-item:hover {
+            border-color: var(--brown);
+            background: rgba(165, 120, 80, 0.1);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-theme .skill-item:hover, .dark-theme .interest-item:hover {
+            border-color: var(--dark-brown);
+            background: rgba(176, 141, 87, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .skill-item.selected, .interest-item.selected {
+            background: var(--selected-bg);
+            border-color: var(--selected-border);
+            color: var(--brown);
+            font-weight: 600;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(75, 46, 5, 0.2);
+        }
+
+        .dark-theme .skill-item.selected, .dark-theme .interest-item.selected {
+            background: rgba(176, 141, 87, 0.3);
+            border-color: var(--dark-brown);
+            color: var(--dark-brown);
+            box-shadow: 0 4px 15px rgba(176, 141, 87, 0.3);
+        }
+
+        .selection-counter {
+            font-size: 0.9rem;
+            color: var(--light-brown);
+            margin-bottom: 15px;
+            font-style: italic;
+            text-align: center;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            display: inline-block;
+            transition: all 0.5s ease;
+        }
+
+        .dark-theme .selection-counter {
+            color: var(--dark-brown);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Special styling for Skills section - Darkened */
+        .skills-section {
+            background: rgba(75, 46, 5, 0.15);
+            border-left: 4px solid var(--brown);
+            transition: all 0.5s ease;
+        }
+
+        .dark-theme .skills-section {
+            background: rgba(75, 46, 5, 0.25);
+            border-left: 4px solid var(--dark-brown);
+        }
+
+        .skills-section .section-title {
+            color: var(--brown);
+        }
+
+        /* Special styling for Interests section - Darkened */
+        .interests-section {
+            background: rgba(169, 116, 110, 0.2);
+            border-left: 4px solid var(--brown);
+            transition: all 0.5s ease;
+        }
+
+        .dark-theme .interests-section {
+            background: rgba(169, 116, 110, 0.3);
+            border-left: 4px solid var(--dark-brown);
+        }
+
+        .interests-section .section-title {
+            color: var(--brown);
+        }
+
+        .interests-section .section-title::before {
+            background: var(--brown);
+        }
+
+        /* Timezone section styling - Darkened */
+        .timezone-section {
+            background: rgba(165, 120, 80, 0.15);
+            border-left: 4px solid #A5783F;
+            transition: all 0.5s ease;
+        }
+
+        .dark-theme .timezone-section {
+            background: rgba(165, 120, 80, 0.25);
+            border-left: 4px solid var(--dark-brown);
+        }
+
+        .dropdown-wrapper {
+            position: relative;
+            max-width: 350px;
+        }
+
+        .dropdown-select {
+            width: 100%;
+            padding: 15px 45px 15px 20px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            appearance: none;
+            transition: all 0.5s ease;
+        }
+
+        .dark-theme .dropdown-select {
+            background: #3a3a3a;
+            border-color: #555;
+            color: #eee;
+        }
+
+        .dropdown-select:focus {
+            border-color: var(--brown);
+            outline: none;
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .dark-theme .dropdown-select:focus {
+            border-color: var(--dark-brown);
+            box-shadow: 0 0 10px rgba(176, 141, 87, 0.5);
+        }
+
+        .dropdown-arrow {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid var(--brown);
+            pointer-events: none;
+            transition: transform 0.3s ease, border-top-color 0.5s ease;
+        }
+
+        .dark-theme .dropdown-arrow {
+            border-top-color: var(--dark-brown);
+        }
+
+        .dropdown-select:focus + .dropdown-arrow {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        /* Toggle section - Darkened */
+        .toggle-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(165, 120, 80, 0.15);
+            border-radius: 15px;
+            border: 2px solid rgba(165, 120, 80, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        .dark-theme .toggle-section {
+            background: rgba(165, 120, 80, 0.25);
+            border: 2px solid rgba(165, 120, 80, 0.5);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--brown);
+        }
+
+        .dark-theme input:checked + .slider {
+            background-color: var(--dark-brown);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .toggle-label {
+            font-weight: 600;
+            color: var(--brown);
+            font-size: 1.1rem;
+            transition: color 0.5s ease;
+        }
+
+        .dark-theme .toggle-label {
+            color: var(--dark-brown);
+        }
+
+        .toggle-description {
+            font-size: 0.95rem;
+            color: var(--light-brown);
+            margin-left: auto;
+            font-style: italic;
+            transition: color 0.5s ease;
+        }
+
+        .dark-theme .toggle-description {
+            color: var(--dark-brown);
+        }
+
+        .submit-btn {
+            width: 100%;
+            max-width: 1200px;
+            padding: 18px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--brown) 0%, var(--brown-hover) 100%);
+            color: white;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 30px auto;
+            display: block;
+        }
+
+        .dark-theme .submit-btn {
+            background: linear-gradient(135deg, var(--dark-brown) 0%, var(--dark-brown-hover) 100%);
+            color: #333;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(75, 46, 5, 0.3);
+        }
+
+        .dark-theme .submit-btn:hover {
+            box-shadow: 0 10px 30px rgba(176, 141, 87, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 0 20px 5px var(--glow-color);
+        }
+
+        .dark-theme .submit-btn:active {
+            box-shadow: 0 0 20px 5px rgba(176, 141, 87, 0.5);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .dark-theme .submit-btn:disabled {
+            background: #555;
+            color: #777;
+        }
+
+        /* Beginner help form styling */
+        #beginner-help-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        #beginner-skill-input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            background: white;
+            color: var(--light-text);
+        }
+
+        .dark-theme #beginner-skill-input {
+            background: #3a3a3a;
+            border-color: #555;
+            color: #eee;
+        }
+
+        #learn-btn {
+            background: var(--brown);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .dark-theme #learn-btn {
+            background: var(--dark-brown);
+        }
+
+        #learn-btn:hover {
+            background: var(--brown-hover);
+        }
+
+        .dark-theme #learn-btn:hover {
+            background: var(--dark-brown-hover);
+        }
+
+        /* YouTube Redirect Modal */
+        .youtube-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .youtube-modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .dark-theme .youtube-modal-content {
+            background: var(--dark-section-bg);
+            color: var(--dark-text);
+        }
+
+        .youtube-modal h3 {
+            color: var(--brown);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .dark-theme .youtube-modal h3 {
+            color: var(--dark-brown);
+        }
+
+        .youtube-modal p {
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .youtube-modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .youtube-modal-btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .youtube-modal-btn.continue {
+            background: var(--brown);
+            color: white;
+        }
+
+        .dark-theme .youtube-modal-btn.continue {
+            background: var(--dark-brown);
+            color: #333;
+        }
+
+        .youtube-modal-btn.back {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .dark-theme .youtube-modal-btn.back {
+            background: #444;
+            color: #eee;
+        }
+
+        .youtube-modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media query adjustments for responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 0 0 20px 0;
+            }
+
+            .main-nav {
+                flex-direction: column;
+                padding: 15px 20px;
+                gap: 15px;
+            }
+
+            .nav-brand, .nav-register-btn {
+                padding-left: 0;
+                margin-right: 0;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            .centered-header-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .form-section {
+                padding: 20px;
+                margin: 0 20px 35px 20px;
+            }
+
+            .toggle-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .toggle-description {
+                margin-left: 0;
+            }
+            
+            .submit-btn {
+                margin: 30px 20px;
+                width: calc(100% - 40px);
+            }
+
+            #beginner-help-form {
+                flex-direction: column;
+            }
+
+            .youtube-modal-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .skills-grid, .interests-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .centered-header-content h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="main-nav">
+            <div class="nav-brand">HackComrade</div>
+            <ul class="nav-links">
+                <li><a href="Team.html">Team</a></li>
+                <li><a href="aipage.html">IdeaHub</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="resources.html">EduZone</a></li>
+            </ul>
+        </nav>
+
+        <div class="centered-header-content">
+            <h1>Complete Your Profile</h1>
+            <p>Help us build the perfect team for you</p>
+        </div>
+        
+        <form id="profile-form">
+            <div class="form-section skills-section">
+                <div class="section-title">
+                    Technical Skills <span class="section-subtitle">(select 3-5)</span>
+                </div>
+                <div class="section-description">
+                    Choose your strongest technical skills that you'd like to contribute to your team
+                </div>
+                <div class="selection-counter" id="skills-counter">0 selected</div>
+                <div class="skills-grid">
+                    <div class="skill-item" data-skill="Java">Java</div>
+                    <div class="skill-item" data-skill="React">React</div>
+                    <div class="skill-item" data-skill="Node.js">Node.js</div>
+                    <div class="skill-item" data-skill="Express.js">Express.js</div>
+                    <div class="skill-item" data-skill="Graphic Design">Graphic Design</div>
+                    <div class="skill-item" data-skill="UI/UX Design">UI/UX Design</div>
+                    <div class="skill-item" data-skill="Angular JS">Angular JS</div>
+                    <div class="skill-item" data-skill="DevOps">DevOps</div>
+                    <div class="skill-item" data-skill="Firebase">Firebase</div>
+                    <div class="skill-item" data-skill="MongoDB">MongoDB</div>
+                    <div class="skill-item" data-skill="Android App Development">Android App Development</div>
+                    <div class="skill-item" data-skill="Python Using Django">Python Using Django</div>
+                    <div class="skill-item" data-skill="Machine Learning">Machine Learning</div>
+                    <div class="skill-item" data-skill="Frontend Development">Frontend Development</div>
+                    <div class="skill-item" data-skill="Backend Development">Backend Development</div>
+                    <div class="skill-item" data-skill="Flask">Flask</div>
+                    <div class="skill-item" data-skill="Bootstrap">Bootstrap</div>
+                    <div class="skill-item" data-skill="Blockchain">Blockchain</div>
+                </div>
+            </div>
+
+            <div class="form-section interests-section">
+                <div class="section-title">
+                    Personal Interests <span class="section-subtitle">(select 1-3)</span>
+                </div>
+                <div class="section-description">
+                    Select your personal interests to help us match you with like-minded teammates
+                </div>
+                <div class="selection-counter" id="interests-counter">0 selected</div>
+                <div class="interests-grid">
+                    <div class="interest-item" data-interest="Web Development">Web Development</div>
+                    <div class="interest-item" data-interest="Blockchain & Web3">Blockchain & Web3</div>
+                    <div class="interest-item" data-interest="IoT">IoT</div>
+                    <div class="interest-item" data-interest="Open Source">Open Source</div>
+                    <div class="interest-item" data-interest="Cloud Computing">Cloud Computing</div>
+                    <div class="interest-item" data-interest="Healthcare">Healthcare</div>
+                    <div class="interest-item" data-interest="AI/ML">AI/ML</div>
+                    <div class="interest-item" data-interest="API Development">API Development</div>
+                    <div class="interest-item" data-interest="Sustainability">Sustainability</div>
+                    <div class="interest-item" data-interest="FinTech">FinTech</div>
+                    <div class="interest-item" data-interest="Game Development">Game Development</div>
+                    <div class="interest-item" data-interest="Generative AI">Generative AI</div>
+                    <div class="interest-item" data-interest="AgriTech">AgriTech</div>
+                </div>
+            </div>
+
+            <div class="form-section timezone-section">
+                <div class="section-title">Time Zone</div>
+                <div class="section-description">
+                    Select your city to help us match you with teammates in compatible time zones
+                </div>
+                <div class="dropdown-wrapper">
+                    <select class="dropdown-select" id="timezone" required>
+                        <option value="">Select your city</option>
+                        <option value="pune">Pune (UTC+05:30)</option>
+                        <option value="kolkata">Kolkata (UTC+05:30)</option>
+                        <option value="delhi">Delhi (UTC+05:30)</option>
+                        <option value="chennai">Chennai (UTC+05:30)</option>
+                    </select>
+                    <div class="dropdown-arrow"></div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Learning Preferences</div>
+                <div class="toggle-section">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="beginner-mode">
+                        <span class="slider"></span>
+                    </label>
+                    <div class="toggle-label">Enable Beginner Mode</div>
+                    <div class="toggle-description">Get extra guidance and learning resources</div>
+                </div>
+            </div>
+
+            <div class="form-section" id="beginner-help-section" style="display: none;">
+                <div class="section-title">Need Help Learning a Skill?</div>
+                <div class="section-description">
+                    Enter a skill you're unfamiliar with, and we'll guide you to learning resources.
+                </div>
+                <div id="beginner-help-form">
+                    <input type="text" id="beginner-skill-input" placeholder="e.g., Node.js" required />
+                    <button type="button" id="learn-btn">Learn</button>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn" disabled>
+                Complete Profile & Find My Team
+            </button>
+        </form>
+    </div>
+
+    <!-- YouTube Redirect Modal -->
+    <div class="youtube-modal" id="youtube-modal">
+        <div class="youtube-modal-content">
+            <h3>Redirecting to YouTube</h3>
+            <p>You're about to be redirected to YouTube to find tutorials for <span id="skill-name"></span>. Would you like to continue?</p>
+            <div class="youtube-modal-buttons">
+                <button class="youtube-modal-btn back" id="modal-back-btn">Back to Profile</button>
+                <button class="youtube-modal-btn continue" id="modal-continue-btn">Continue to YouTube</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Store selected items
+        let selectedSkills = [];
+        let selectedInterests = [];
+        let currentSkillToLearn = '';
+
+        // UI Elements
+        const body = document.body;
+        const beginnerModeToggle = document.getElementById('beginner-mode');
+        const beginnerHelpSection = document.getElementById('beginner-help-section');
+        const profileForm = document.getElementById('profile-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const learnBtn = document.getElementById('learn-btn');
+        const beginnerSkillInput = document.getElementById('beginner-skill-input');
+        const youtubeModal = document.getElementById('youtube-modal');
+        const skillNameSpan = document.getElementById('skill-name');
+        const modalBackBtn = document.getElementById('modal-back-btn');
+        const modalContinueBtn = document.getElementById('modal-continue-btn');
+
+        // Skill selection logic
+        const skillItems = document.querySelectorAll('.skill-item');
+        const skillsCounter = document.getElementById('skills-counter');
+
+        skillItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const skill = item.dataset.skill;
+                if (item.classList.contains('selected')) {
+                    item.classList.remove('selected');
+                    selectedSkills = selectedSkills.filter(s => s !== skill);
+                } else {
+                    if (selectedSkills.length < 5) {
+                        item.classList.add('selected');
+                        selectedSkills.push(skill);
+                    } else {
+                        alert('You can select a maximum of 5 skills');
+                    }
+                }
+                updateSkillsCounter();
+                updateSubmitButton();
+            });
+        });
+
+        // Interest selection logic
+        const interestItems = document.querySelectorAll('.interest-item');
+        const interestsCounter = document.getElementById('interests-counter');
+
+        interestItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const interest = item.dataset.interest;
+                if (item.classList.contains('selected')) {
+                    item.classList.remove('selected');
+                    selectedInterests = selectedInterests.filter(i => i !== interest);
+                } else {
+                    if (selectedInterests.length < 3) {
+                        item.classList.add('selected');
+                        selectedInterests.push(interest);
+                    } else {
+                        alert('You can select a maximum of 3 interests');
+                    }
+                }
+                updateInterestsCounter();
+                updateSubmitButton();
+            });
+        });
+
+        // Update counters
+        function updateSkillsCounter() {
+            skillsCounter.textContent = selectedSkills.length + ' selected';
+            const isSkillsValid = selectedSkills.length >= 3 && selectedSkills.length <= 5;
+            skillsCounter.style.color = isSkillsValid ? 'var(--brown)' : 'var(--light-brown)';
+            if (body.classList.contains('dark-theme')) {
+                skillsCounter.style.color = isSkillsValid ? 'var(--dark-brown)' : 'var(--dark-brown)';
+            }
+        }
+
+        function updateInterestsCounter() {
+            interestsCounter.textContent = selectedInterests.length + ' selected';
+            const isInterestsValid = selectedInterests.length >= 1 && selectedInterests.length <= 3;
+            interestsCounter.style.color = isInterestsValid ? 'var(--brown)' : 'var(--light-brown)';
+            if (body.classList.contains('dark-theme')) {
+                interestsCounter.style.color = isInterestsValid ? 'var(--dark-brown)' : 'var(--dark-brown)';
+            }
+        }
+
+        // Update submit button state
+        function updateSubmitButton() {
+            const timezone = document.getElementById('timezone').value;
+            const skillsValid = selectedSkills.length >= 3 && selectedSkills.length <= 5;
+            const interestsValid = selectedInterests.length >= 1 && selectedInterests.length <= 3;
+            const timezoneValid = timezone !== '';
+            
+            const isValid = skillsValid && interestsValid && timezoneValid;
+            submitBtn.disabled = !isValid;
+            submitBtn.style.opacity = isValid ? '1' : '0.7';
+        }
+
+        // Timezone change listener
+        document.getElementById('timezone').addEventListener('change', updateSubmitButton);
+
+        // Beginner mode toggle listener
+        beginnerModeToggle.addEventListener('change', () => {
+            if (beginnerModeToggle.checked) {
+                body.classList.add('dark-theme');
+                beginnerHelpSection.style.display = 'block';
+            } else {
+                body.classList.remove('dark-theme');
+                beginnerHelpSection.style.display = 'none';
+            }
+        });
+
+        // Learn button click handler
+        learnBtn.addEventListener('click', () => {
+            const skill = beginnerSkillInput.value.trim();
+            if (skill) {
+                currentSkillToLearn = skill;
+                skillNameSpan.textContent = skill;
+                youtubeModal.style.display = 'flex';
+            } else {
+                alert('Please enter a skill to learn');
+            }
+        });
+
+        // Modal button handlers
+        modalBackBtn.addEventListener('click', () => {
+            youtubeModal.style.display = 'none';
+        });
+
+        modalContinueBtn.addEventListener('click', () => {
+            // Redirect to YouTube search
+            const youtubeSearchUrl = 'https://www.youtube.com/results?search_query=' + 
+                encodeURIComponent(currentSkillToLearn + ' tutorial');
+            window.open(youtubeSearchUrl, '_blank');
+            youtubeModal.style.display = 'none';
+            
+            // Clear the input field
+            beginnerSkillInput.value = '';
+        });
+
+        // Close modal if clicked outside
+        youtubeModal.addEventListener('click', (e) => {
+            if (e.target === youtubeModal) {
+                youtubeModal.style.display = 'none';
+            }
+        });
+
+        // Main form submission
+        profileForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const timezone = document.getElementById('timezone').value;
+            const beginnerMode = beginnerModeToggle.checked;
+            
+            const profileData = {
+                skills: selectedSkills,
+                interests: selectedInterests,
+                timezone: timezone,
+                beginnerMode: beginnerMode
+            };
+
+            console.log('Profile Data:', profileData);
+            
+            // In a real application, you would send this data to your server
+            alert('Profile completed successfully! We\'ll start finding your team now.');
+            
+            // Redirect to the team page
+            window.location.href = 'Team.html';
+        });
+
+        // Initialize counters
+        updateSkillsCounter();
+        updateInterestsCounter();
+    </script>
+</body>
+</html>

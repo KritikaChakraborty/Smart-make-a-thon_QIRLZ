@@ -1,0 +1,1813 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HACKCOMRADE - Find Your Perfect Team</title>
+
+  <!-- Creepster font -->
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --beige: #f5f0e6;
+      --light-bg: #f9f6f0;
+      --light-text: #4B2E05;
+      --brown: #4B2E05;
+      --brown-hover: #6b4220;
+      --glow-color: rgba(165, 120, 80, 0.5);
+      --nav-bg: #4B2E05;
+      --nav-text: #f5f0e6;
+      --green: #8a9a5b;
+      --orange: #d9a066;
+      --blue: #7d9fb8;
+      --red: #c76a5c;
+      --purple: #9C27B0;
+      --light-orange: #f8efe0;
+      --card-shadow: 0 5px 15px rgba(75, 46, 5, 0.08);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--light-text);
+      transition: background-color 0.3s, color 0.3s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      background-color: var(--nav-bg);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nav-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--brown);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .nav-brand {
+      font-family: 'Creepster', cursive;
+      font-size: 1.8rem;
+      color: var(--nav-text);
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--nav-text);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-links a:hover {
+      background-color: var(--brown-hover);
+      color: white;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* User Profile Section - Full Width */
+    .user-profile {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(165, 120, 80, 0.2);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 0;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+    }
+
+    .user-profile:hover {
+      box-shadow: 0 10px 25px rgba(75, 46, 5, 0.15);
+    }
+
+    .user-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(165, 120, 80, 0.2);
+    }
+
+    .user-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brown) 0%, var(--brown-hover) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-right: 20px;
+      box-shadow: 0 4px 10px rgba(75, 46, 5, 0.2);
+    }
+
+    .user-info h2 {
+      color: var(--brown);
+      margin-bottom: 8px;
+      font-size: 1.8rem;
+    }
+
+    .user-info p {
+      color: #666;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .user-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .user-tag {
+      background: rgba(75, 46, 5, 0.1);
+      color: var(--brown);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Retry Section - Placed below user details */
+    .retry-section {
+      margin: 25px 0;
+      padding: 20px;
+      background: var(--light-orange);
+      border-radius: 12px;
+      border: 1px dashed rgba(165, 120, 80, 0.4);
+      text-align: center;
+      position: relative;
+    }
+
+    .retry-counter {
+      color: var(--brown);
+      font-size: 1rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .retry-counter i {
+      color: var(--orange);
+    }
+
+    .retry-btn {
+      padding: 10px 25px;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(to right, var(--brown), var(--brown-hover));
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(75, 46, 5, 0.2);
+    }
+
+    .retry-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(75, 46, 5, 0.3);
+    }
+
+    .retry-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .retry-result {
+      margin-top: 15px;
+      padding: 12px;
+      background: rgba(138, 154, 91, 0.15);
+      border-radius: 8px;
+      text-align: center;
+      color: var(--green);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* Team Members Section */
+    .team-members-section {
+      margin-top: 25px;
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      border: 1px solid rgba(165, 120, 80, 0.2);
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+    }
+
+    .team-members-section:hover {
+      box-shadow: 0 8px 20px rgba(75, 46, 5, 0.12);
+    }
+
+    .team-members-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .team-member-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      padding: 18px;
+      border: 1px solid rgba(165, 120, 80, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: var(--transition);
+      box-shadow: var(--card-shadow);
+    }
+
+    .team-member-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(75, 46, 5, 0.15);
+    }
+
+    .team-member-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brown) 0%, var(--brown-hover) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .team-member-info {
+      flex: 1;
+    }
+
+    .team-member-name {
+      font-weight: 600;
+      color: var(--brown);
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .team-member-role {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .remove-member-btn {
+      background: none;
+      border: none;
+      color: var(--red);
+      cursor: pointer;
+      font-size: 1.4rem;
+      transition: var(--transition);
+      padding: 5px;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .remove-member-btn:hover {
+      background: rgba(199, 106, 92, 0.1);
+    }
+
+    /* Main content layout */
+    .content-container {
+      display: flex;
+      gap: 30px;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    .suggestions-container {
+      flex: 2;
+    }
+
+    .analytics-container {
+      flex: 1;
+    }
+
+    /* Team Suggestions */
+    .team-section {
+      margin-top: 25px;
+    }
+
+    .section-title {
+      color: var(--brown);
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(165, 120, 80, 0.2);
+    }
+
+    .section-title i {
+      margin-right: 10px;
+      color: var(--orange);
+    }
+
+    .create-team-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(to right, var(--brown), var(--brown-hover));
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(75, 46, 5, 0.2);
+    }
+
+    .create-team-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(75, 46, 5, 0.3);
+    }
+
+    .member-suggestions {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 25px;
+    }
+
+    /* Member cards */
+    .member-card {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid rgba(165, 120, 80, 0.2);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .member-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(75, 46, 5, 0.15);
+      border-color: var(--brown);
+    }
+
+    .member-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .member-name {
+      font-weight: 600;
+      color: var(--brown);
+      font-size: 1.2rem;
+    }
+
+    .match-score {
+      background: linear-gradient(to right, var(--green), #6b8e23);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .member-details {
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+
+    .detail-item {
+      display: flex;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: var(--brown);
+      min-width: 100px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .detail-label i {
+      color: var(--orange);
+      width: 18px;
+    }
+
+    .member-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .skill-tag {
+      background: rgba(75, 46, 5, 0.1);
+      color: var(--brown);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      transition: var(--transition);
+    }
+
+    .skill-tag:hover {
+      background: rgba(75, 46, 5, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Social Links */
+    .social-links {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(75, 46, 5, 0.1);
+      color: var(--brown);
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .social-link:hover {
+      background: var(--brown);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .member-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, var(--brown), var(--brown-hover));
+      color: white;
+      flex: 1;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(75, 46, 5, 0.2);
+    }
+
+    .btn-secondary {
+      background: rgba(224, 224, 224, 0.7);
+      color: #555;
+      flex: 1;
+    }
+
+    .btn-secondary:hover {
+      background: #d0d0d0;
+      transform: translateY(-2px);
+    }
+
+    .btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Team Analytics */
+    .analytics-section {
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      border: 1px solid rgba(165, 120, 80, 0.2);
+      box-shadow: var(--card-shadow);
+      margin-top: 25px;
+      transition: var(--transition);
+    }
+
+    .analytics-section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(75, 46, 5, 0.12);
+    }
+
+    .analytics-title {
+      color: var(--brown);
+      margin-bottom: 25px;
+      font-size: 1.3rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .analytics-chart-container {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 25px;
+    }
+
+    .analytics-chart {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--red) 0% 30%,
+        var(--orange) 30% 70%,
+        var(--blue) 70% 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .chart-inner {
+      width: 70%;
+      height: 70%;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05) inset;
+    }
+
+    .chart-total {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--brown);
+      line-height: 1;
+    }
+
+    .chart-label {
+      font-size: 0.7rem;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .analytics-details {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .analytics-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      transition: var(--transition);
+    }
+
+    .analytics-item:hover {
+      transform: translateX(5px);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .analytics-color {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .analytics-info {
+      flex: 1;
+    }
+
+    .analytics-value {
+      font-weight: 600;
+      color: var(--brown);
+      font-size: 1.05rem;
+    }
+
+    .analytics-label {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 3px;
+    }
+
+    .skill-color { background: var(--red); }
+    .timezone-color { background: var(--orange); }
+    .interest-color { background: var(--blue); }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #888;
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      color: #ccc;
+    }
+
+    .empty-state p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    /* Custom modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: linear-gradient(135deg, #f5f0e6 0%, #e8dfce 100%);
+      padding: 35px;
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      border: 1px solid rgba(165, 120, 80, 0.4);
+      animation: modalFadeIn 0.3s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-title {
+      color: var(--brown);
+      margin-bottom: 15px;
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .modal-text {
+      color: #666;
+      margin-bottom: 25px;
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+
+    .api-input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid rgba(165, 120, 80, 0.3);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      transition: var(--transition);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .api-input:focus {
+      outline: none;
+      border-color: var(--brown);
+      box-shadow: 0 0 8px 3px rgba(75, 46, 5, 0.15);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 15px 25px;
+      background: var(--brown);
+      color: white;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      animation: toastIn 0.3s ease-out, toastOut 0.3s ease-in 2.7s forwards;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes toastOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      padding: 5px;
+    }
+
+    .mobile-menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: var(--nav-text);
+      transition: 0.3s;
+      border-radius: 3px;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .main-content {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .content-container {
+        flex-direction: column;
+      }
+      
+      .suggestions-container, 
+      .analytics-container {
+        flex: 1;
+      }
+      
+      .member-suggestions {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--nav-bg);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        gap: 0;
+      }
+
+      .nav-links active {
+        display: flex;
+      }
+
+      .nav-links li {
+        width: 100%;
+      }
+
+      .nav-links a {
+        padding: 12px 20px;
+        border-radius: 0;
+        width: 100%;
+      }
+
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .nav-brand {
+        font-size: 1.5rem;
+      }
+      
+      .main-content {
+        padding: 1rem;
+      }
+      
+      .member-suggestions {
+        grid-template-columns: 1fr;
+      }
+
+      .analytics-details {
+        grid-template-columns: 1fr;
+      }
+      
+      .user-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .user-avatar {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+      
+      .team-members-list {
+        grid-template-columns: 1fr;
+      }
+      
+      .section-title {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+      
+      .modal-content {
+        padding: 25px 20px;
+      }
+      
+      .modal-actions {
+        flex-direction: column;
+      }
+      
+      .modal-actions .btn {
+        width: 100%;
+      }
+      
+      .user-info p {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+      }
+      
+      .user-tags {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .member-actions {
+        flex-direction: column;
+      }
+      
+      .retry-counter {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .detail-item {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .detail-label {
+        min-width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">HC</div>
+      <a href="#" class="nav-brand">HACKCOMRADE</a>
+    </div>
+    
+    <ul class="nav-links" id="navLinks">
+      <li><a href="Team.html"><i class="fas fa-users"></i> Team</a></li>
+      <li><a href="aipage.html"><i class="fas fa-lightbulb"></i> IdeaHub</a></li>
+      <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+      <li><a href="resources.html"><i class="fas fa-book"></i> EduZone</a></li>
+    </ul>
+
+    <div class="mobile-menu-toggle" id="mobileToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- User Profile Section - Full Width -->
+    <div class="user-profile">
+      <div class="user-header">
+        <div class="user-avatar">MM</div>
+        <div class="user-info">
+          <h2>Moupiya Mondal</h2>
+          <p><i class="fas fa-code"></i> Full Stack Developer | JavaScript, React, Node.js</p>
+          <div class="user-tags">
+            <span class="user-tag"><i class="fas fa-clock"></i> EST Timezone</span>
+            <span class="user-tag"><i class="fas fa-star"></i> 4.8 Rating</span>
+            <span class="user-tag"><i class="fas fa-trophy"></i> 5 Hackathons</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Retry Section - Placed below user details -->
+      <div class="retry-section">
+        <div class="retry-counter">
+          <i class="fas fa-sync-alt"></i>
+          <p>Retry matches remaining: <strong id="retry-count">3</strong>/3</p>
+        </div>
+        <button class="retry-btn" id="retry-btn">
+          <i class="fas fa-search"></i> Find New Matches
+        </button>
+        <div class="retry-result" id="retry-result" style="display: none;">
+          <i class="fas fa-check-circle"></i>
+          Found 5 new potential matches for you!
+        </div>
+      </div>
+
+      <!-- Team Members Section - Added to show selected team members -->
+      <div class="team-members-section">
+        <h3 class="section-title">
+          <span><i class="fas fa-users"></i> Your Team Members</span>
+        </h3>
+        <div class="team-members-list" id="team-members-list">
+          <!-- Team members will be dynamically inserted here -->
+          <div class="team-member-card fade-in">
+            <div class="team-member-avatar">MM</div>
+            <div class="team-member-info">
+              <div class="team-member-name">Moupiya Mondal</div>
+              <div class="team-member-role">Full Stack Developer</div>
+            </div>
+            <!-- No remove button for yourself -->
+          </div>
+        </div>
+      </div>
+
+      <div class="content-container">
+        <!-- Left Column: Member Suggestions -->
+        <div class="suggestions-container">
+          <!-- Member Suggestions -->
+          <div class="team-section">
+            <div class="section-title">
+              <span><i class="fas fa-user-plus"></i> Member Suggestions</span>
+              <button class="create-team-btn" id="create-team-btn">
+                <i class="fas fa-plus"></i> Create New Team
+              </button>
+            </div>
+            
+            <div class="member-suggestions" id="member-suggestions">
+              <!-- Member cards will be dynamically inserted here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Team Analytics -->
+        <div class="analytics-container">
+          <!-- Team Analytics -->
+          <div class="analytics-section">
+            <h3 class="analytics-title">
+              <i class="fas fa-chart-pie"></i> Team Compatibility Analytics
+            </h3>
+            
+            <div class="analytics-chart-container">
+              <div class="analytics-chart"></div>
+              <div class="chart-inner">
+                <div class="chart-total">85%</div>
+                <div class="chart-label">Overall Match</div>
+              </div>
+            </div>
+            
+            <div class="analytics-details">
+              <div class="analytics-item">
+                <div class="analytics-color skill-color"></div>
+                <div class="analytics-info">
+                  <div class="analytics-value">78% Skill Coverage</div>
+                  <div class="analytics-label">How well skills complement each other</div>
+                </div>
+              </div>
+              
+              <div class="analytics-item">
+                <div class="analytics-color timezone-color"></div>
+                <div class="analytics-info">
+                  <div class="analytics-value">92% Timezone Compatibility</div>
+                  <div class="analytics-label">How well timezones align for collaboration</div>
+                </div>
+              </div>
+              
+              <div class="analytics-item">
+                <div class="analytics-color interest-color"></div>
+                <div class="analytics-info">
+                  <div class="analytics-value">85% Interest Alignment</div>
+                  <div class="analytics-label">How well project interests align</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Team Modal -->
+  <div class="modal" id="create-team-modal">
+    <div class="modal-content">
+      <h3 class="modal-title"><i class="fas fa-users"></i> Create New Team</h3>
+      <p class="modal-text">Enter a name for your new team. You can always change it later.</p>
+      <input type="text" id="team-name-input" class="api-input" placeholder="Awesome Team Name" />
+      <div class="modal-actions">
+        <button onclick="createNewTeam()" class="btn btn-primary">
+          <i class="fas fa-check"></i> Create Team
+        </button>
+        <button onclick="closeModal('create-team-modal')" class="btn btn-secondary">
+          <i class="fas fa-times"></i> Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Retry Modal -->
+  <div class="modal" id="retry-modal">
+    <div class="modal-content">
+      <h3 class="modal-title"><i class="fas fa-sync-alt"></i> Retry Match</h3>
+      <p class="modal-text" id="retry-modal-text">You have <span id="retry-remaining">3</span> retry attempt(s) remaining. Would you like to find new member suggestions?</p>
+      <div class="modal-actions">
+        <button onclick="retryMatch()" class="btn btn-primary">
+          <i class="fas fa-search"></i> Find New Matches
+        </button>
+        <button onclick="closeModal('retry-modal')" class="btn btn-secondary">
+          <i class="fas fa-times"></i> Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Retries Modal -->
+  <div class="modal" id="no-retries-modal">
+    <div class="modal-content">
+      <h3 class="modal-title"><i class="fas fa-exclamation-circle"></i> No Retries Left</h3>
+      <p class="modal-text">You've used all your retry attempts. You can still create your own team or invite members manually.</p>
+      <div class="modal-actions">
+        <button onclick="closeModal('no-retries-modal')" class="btn btn-primary">
+          <i class="fas fa-check"></i> OK
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sample member data - 15 members total
+    const allMembers = [
+      {
+        id: 1,
+        name: "Antara Biswas",
+        matchScore: 92,
+        role: "UI/UX Designer",
+        timezone: "EST (UTC-5)",
+        skills: ["HTML", "CSS", "Java Script", "SQL"],
+        projects: "E-commerce redesign, Health app UI",
+        github: "https://github.com/antarabiswas",
+        linkedin: "linkedin - https://www.linkedin.com/in/antara-biswas-9804b42a1/",
+        compatibility: {
+          skills: 95,
+          timezone: 90,
+          interests: 92
+        }
+      },
+      {
+        id: 2,
+        name: "Diya Das",
+        matchScore: 88,
+        role: "Backend Developer",
+        timezone: "PST (UTC-8)",
+        skills: ["Node.js", "MongoDB", "Firebase", "React"],
+        projects: "Payment system, Real-time chat app",
+        github: "https://github.com/diyadas1411",
+        linkedin: "https://www.linkedin.com/in/diya-das-563225313",
+        compatibility: {
+          skills: 90,
+          timezone: 85,
+          interests: 88
+        }
+      },
+      {
+        id: 3,
+        name: "Kritika Chakraborty",
+        matchScore: 85,
+        role: "Data Scientist",
+        timezone: "CST (UTC-6)",
+        skills: ["Frontend Developer", "ML", "Data Analysis", " Web Developer"],
+        projects: "Recommendation engine, Fraud detection",
+        github: "https://github.com/KritikaChakraborty",
+        linkedin: "https://www.linkedin.com/in/kritika-chakraborty-759870282/",
+        compatibility: {
+          skills: 80,
+          timezone: 95,
+          interests: 90
+        }
+      },
+      {
+        id: 4,
+        name: "Shantanu Mondal",
+        matchScore: 82,
+        role: "DevOps Engineer",
+        timezone: "EST (UTC-5)",
+        skills: ["Java Developer ", "Full Stack Developer", " Spring Boot", " SQL"],
+        projects: "Infrastructure automation, Deployment pipelines",
+        github: "https://github.com/Shantanu106",
+        linkedin: "https://www.linkedin.com/in/shantanu-mondal-a9b39328a",
+        compatibility: {
+          skills: 85,
+          timezone: 90,
+          interests: 80
+        }
+      },
+      {
+        id: 5,
+        name: "Aditya Kaushik",
+        matchScore: 79,
+        role: "Frontend Developer",
+        timezone: "GMT (UTC+0)",
+        skills: ["Full-Stack Developer", "CSS", "Open Source & DSA Enthusiast", "TypeScript"],
+        projects: "Dashboard UI, Interactive data visualization",
+        github: "https://github.com/Adityakaushik4",
+        linkedin: "https://www.linkedin.com/in/aditya-kaushik-a861bb332/",
+        compatibility: {
+          skills: 75,
+          timezone: 70,
+          interests: 85
+        }
+      },
+      {
+        id: 6,
+        name: "Amit Paul",
+        matchScore: 91,
+        role: "Full Stack Developer",
+        timezone: "PST (UTC-8)",
+        skills: ["AI/ML Enthusiast", "CSE Undergrad", "PostgreSQL"],
+        projects: "Social media platform, E-learning system",
+        github: "https://github.com/amitpaul2004",
+        linkedin: "https://www.linkedin.com/in/amit-paul-820771324",
+        compatibility: {
+          skills: 88,
+          timezone: 85,
+          interests: 92
+        }
+      },
+      {
+        id: 7,
+        name: "Dimitri Dey",
+        matchScore: 87,
+        role: "Mobile Developer",
+        timezone: "EST (UTC-5)",
+        skills: ["React Native", "iOS", "Android", "Firebase"],
+        projects: "Fitness app, E-commerce mobile app",
+        github: "https://github.com/dimitridey2004",
+        linkedin: "https://www.linkedin.com/in/dimitri-dey-96a6132ba/",
+        compatibility: {
+          skills: 90,
+          timezone: 92,
+          interests: 83
+        }
+      },
+      {
+        id: 8,
+        name: "Ritam Das",
+        matchScore: 84,
+        role: "Cloud Architect",
+        timezone: "CST (UTC-6)",
+        skills: ["AWS", "Azure", "DevOps", "Kubernetes"],
+        projects: "Cloud migration, Microservices architecture",
+        github: "henryd",
+        linkedin: "henry-davis-cloud",
+        compatibility: {
+          skills: 82,
+          timezone: 88,
+          interests: 87
+        }
+      },
+      {
+        id: 9,
+        name: "Sourav paul",
+        matchScore: 93,
+        role: "Product Manager",
+        timezone: "PST (UTC-8)",
+        skills: ["Agile", "Scrum", "Product Strategy", "User Stories"],
+        projects: "SaaS product, Mobile app development",
+        github: "ivym",
+        linkedin: "ivy-martinez-pm",
+        compatibility: {
+          skills: 95,
+          timezone: 85,
+          interests: 90
+        }
+      },
+      {
+        id: 10,
+        name: "Ayan Manna",
+        matchScore: 81,
+        role: "QA Engineer",
+        timezone: "EST (UTC-5)",
+        skills: ["Testing", "Automation", "Selenium", "Jest"],
+        projects: "Test automation framework, CI/CD pipeline",
+        github: "https://github.com/AyanManna10",
+        linkedin: "https://www.linkedin.com/in/ayan-manna-474b28298/",
+        compatibility: {
+          skills: 78,
+          timezone: 90,
+          interests: 82
+        }
+      },
+      {
+        id: 11,
+        name: "Karen Taylor",
+        matchScore: 89,
+        role: "Data Engineer",
+        timezone: "GMT (UTC+0)",
+        skills: ["Python", "SQL", "ETL", "Big Data"],
+        projects: "Data pipeline, Analytics platform",
+        github: "karent",
+        linkedin: "karen-taylor-data",
+        compatibility: {
+          skills: 92,
+          timezone: 75,
+          interests: 88
+        }
+      },
+      {
+        id: 12,
+        name: "Liam Anderson",
+        matchScore: 86,
+        role: "Security Engineer",
+        timezone: "CST (UTC-6)",
+        skills: ["Cybersecurity", "Pen Testing", "Encryption", "OWASP"],
+        projects: "Security audit, Vulnerability assessment",
+        github: "liama",
+        linkedin: "liam-anderson-security",
+        compatibility: {
+          skills: 84,
+          timezone: 88,
+          interests: 89
+        }
+      },
+      {
+        id: 13,
+        name: "Mia Thomas",
+        matchScore: 90,
+        role: "Frontend Developer",
+        timezone: "PST (UTC-8)",
+        skills: ["Vue.js", "CSS", "Webpack", "Jest"],
+        projects: "Progressive web app, Design system",
+        github: "miat",
+        linkedin: "mia-thomas-frontend",
+        compatibility: {
+          skills: 88,
+          timezone: 85,
+          interests: 93
+        }
+      },
+      {
+        id: 14,
+        name: "Noah Jackson",
+        matchScore: 83,
+        role: "Backend Developer",
+        timezone: "EST (UTC-5)",
+        skills: ["Java", "Spring Boot", "MySQL", "Docker"],
+        projects: "REST API, Microservices",
+        github: "noahj",
+        linkedin: "noah-jackson-backend",
+        compatibility: {
+          skills: 85,
+          timezone: 92,
+          interests: 80
+        }
+      },
+      {
+        id: 15,
+        name: "Olivia White",
+        matchScore: 94,
+        role: "UX Researcher",
+        timezone: "GMT (UTC+0)",
+        skills: ["User Testing", "Interviews", "Surveys", "Personas"],
+        projects: "User research, Usability studies",
+        github: "oliviaw",
+        linkedin: "olivia-white-ux",
+        compatibility: {
+          skills: 96,
+          timezone: 70,
+          interests: 92
+        }
+      }
+    ];
+
+    const memberSuggestions = document.getElementById('member-suggestions');
+    const teamMembersList = document.getElementById('team-members-list');
+    const createTeamBtn = document.getElementById('create-team-btn');
+    const retryBtn = document.getElementById('retry-btn');
+    const retryCountElement = document.getElementById('retry-count');
+    const retryResult = document.getElementById('retry-result');
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    let retryCount = 3;
+    let selectedMembers = [];
+    let currentMembers = [];
+    let currentIndex = 0;
+
+    // Initialize the page
+    function initPage() {
+      // Show first 5 members initially
+      currentMembers = getNextMembers(5);
+      renderMemberSuggestions();
+      updateRetryCounter();
+      renderTeamMembers();
+    }
+
+    // Get next set of members
+    function getNextMembers(count) {
+      const nextMembers = [];
+      const usedIndices = new Set();
+      
+      // Make sure we don't show the same members again
+      while (nextMembers.length < count && usedIndices.size < allMembers.length) {
+        const randomIndex = Math.floor(Math.random() * allMembers.length);
+        
+        if (!usedIndices.has(randomIndex)) {
+          // Check if this member is not in the current display
+          const member = allMembers[randomIndex];
+          if (!currentMembers.some(m => m.id === member.id)) {
+            nextMembers.push(member);
+          }
+          usedIndices.add(randomIndex);
+        }
+      }
+      
+      return nextMembers;
+    }
+
+    // Render member suggestions
+    function renderMemberSuggestions() {
+      memberSuggestions.innerHTML = '';
+      
+      if (currentMembers.length === 0) {
+        memberSuggestions.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-user-slash"></i>
+            <p>No member suggestions available.</p>
+            <p>Try again later or create your own team.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      currentMembers.forEach(member => {
+        const memberCard = document.createElement('div');
+        memberCard.className = 'member-card fade-in';
+        
+        // Check if member is already added to team
+        const isAdded = selectedMembers.includes(member.id);
+        
+        memberCard.innerHTML = `
+          <div class="member-header">
+            <div class="member-name">${member.name}</div>
+            <div class="match-score"><i class="fas fa-heart"></i> ${member.matchScore}%</div>
+          </div>
+          <div class="member-details">
+            <div class="detail-item">
+              <span class="detail-label"><i class="fas fa-briefcase"></i> Role:</span>
+              <span>${member.role}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label"><i class="fas fa-clock"></i> Timezone:</span>
+              <span>${member.timezone}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label"><i class="fas fa-project-diagram"></i> Projects:</span>
+              <span>${member.projects}</span>
+            </div>
+          </div>
+          <div class="member-skills">
+            ${member.skills.map(skill => 
+              `<span class="skill-tag">${skill}</span>`
+            ).join('')}
+          </div>
+          <div class="social-links">
+            ${member.github ? `<a href="https://github.com/${member.github}" target="_blank" class="social-link" title="GitHub Profile"><i class="fab fa-github"></i></a>` : ''}
+            ${member.linkedin ? `<a href="https://linkedin.com/in/${member.linkedin}" target="_blank" class="social-link" title="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>` : ''}
+          </div>
+          <div class="member-actions">
+            <button class="btn ${isAdded ? 'btn-secondary' : 'btn-primary'} add-member" data-member="${member.id}" ${isAdded ? 'disabled' : ''}>
+              <i class="fas ${isAdded ? 'fa-check' : 'fa-plus'}"></i> ${isAdded ? 'Added' : 'Add to Team'}
+            </button>
+            <button class="btn btn-secondary view-profile" data-member="${member.id}">
+              <i class="fas fa-user"></i> Profile
+            </button>
+          </div>
+        `;
+        
+        memberSuggestions.appendChild(memberCard);
+      });
+      
+      // Add event listeners to buttons
+      document.querySelectorAll('.add-member').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const memberId = parseInt(e.target.closest('.add-member').getAttribute('data-member'));
+          addMember(memberId);
+        });
+      });
+      
+      document.querySelectorAll('.view-profile').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const memberId = parseInt(e.target.closest('.view-profile').getAttribute('data-member'));
+          viewMemberProfile(memberId);
+        });
+      });
+    }
+
+    // Add a member to team
+    function addMember(memberId) {
+      const member = allMembers.find(m => m.id === memberId);
+      if (member && !selectedMembers.includes(memberId)) {
+        selectedMembers.push(memberId);
+        showToast(`${member.name} has been added to your team!`, 'success');
+        renderTeamMembers();
+        renderMemberSuggestions(); // Refresh to update button states
+      } else {
+        showToast(`${member.name} is already in your team.`, 'info');
+      }
+    }
+
+    // Remove a member from team
+    function removeMember(memberId) {
+      if (memberId !== 0) { // Don't allow removing yourself (id 0)
+        const member = allMembers.find(m => m.id === memberId);
+        const index = selectedMembers.indexOf(memberId);
+        if (index > -1) {
+          selectedMembers.splice(index, 1);
+          showToast(`${member.name} has been removed from your team.`, 'info');
+          renderTeamMembers();
+          renderMemberSuggestions(); // Refresh to update button states
+        }
+      }
+    }
+
+    // Render team members
+    function renderTeamMembers() {
+      // Always show yourself first
+      teamMembersList.innerHTML = `
+        <div class="team-member-card fade-in">
+          <div class="team-member-avatar">JS</div>
+          <div class="team-member-info">
+            <div class="team-member-name">Moupiya Mondal</div>
+            <div class="team-member-role">Full Stack Developer</div>
+          </div>
+          <!-- No remove button for yourself -->
+        </div>
+      `;
+      
+      // Show selected team members
+      selectedMembers.forEach(memberId => {
+        const member = allMembers.find(m => m.id === memberId);
+        if (member) {
+          const memberCard = document.createElement('div');
+          memberCard.className = 'team-member-card fade-in';
+          memberCard.innerHTML = `
+            <div class="team-member-avatar">${member.name.split(' ').map(n => n[0]).join('')}</div>
+            <div class="team-member-info">
+              <div class="team-member-name">${member.name}</div>
+              <div class="team-member-role">${member.role}</div>
+            </div>
+            <button class="remove-member-btn" data-member="${member.id}" title="Remove member">
+              <i class="fas fa-times"></i>
+            </button>
+          `;
+          teamMembersList.appendChild(memberCard);
+        }
+      });
+      
+      // Add event listeners to remove buttons
+      document.querySelectorAll('.remove-member-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const memberId = parseInt(e.target.closest('.remove-member-btn').getAttribute('data-member'));
+          removeMember(memberId);
+        });
+      });
+    }
+
+    // View member profile
+    function viewMemberProfile(memberId) {
+      const member = allMembers.find(m => m.id === memberId);
+      if (member) {
+        // Create a detailed modal with GitHub and LinkedIn links
+        const modalContent = `
+          <h3 class="modal-title"><i class="fas fa-user"></i> ${member.name}</h3>
+          <div style="text-align: left; margin-bottom: 20px;">
+            <p><strong>Role:</strong> ${member.role}</p>
+            <p><strong>Timezone:</strong> ${member.timezone}</p>
+            <p><strong>Projects:</strong> ${member.projects}</p>
+            <p><strong>Skills:</strong> ${member.skills.join(', ')}</p>
+            <p><strong>Match Score:</strong> ${member.matchScore}%</p>
+            <div class="social-links" style="margin-top: 15px; display: flex; gap: 10px;">
+              ${member.github ? `<a href="https://github.com/${member.github}" target="_blank" class="social-link" title="GitHub Profile"><i class="fab fa-github"></i> GitHub</a>` : ''}
+              ${member.linkedin ? `<a href="https://linkedin.com/in/${member.linkedin}" target="_blank" class="social-link" title="LinkedIn Profile"><i class="fab fa-linkedin"></i> LinkedIn</a>` : ''}
+            </div>
+          </div>
+        `;
+        
+        // Create a temporary modal for profile view
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.style.display = 'flex';
+        modal.innerHTML = `
+          <div class="modal-content">
+            ${modalContent}
+            <div class="modal-actions">
+              <button onclick="closeTempModal()" class="btn btn-primary">
+                <i class="fas fa-check"></i> OK
+              </button>
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Add close handler
+        window.closeTempModal = function() {
+          document.body.removeChild(modal);
+        };
+      }
+    }
+
+    // Show toast notification
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+        <span>${message}</span>
+      `;
+      
+      document.body.appendChild(toast);
+      
+      // Remove toast after animation completes
+      setTimeout(() => {
+        if (toast.parentNode) {
+          toast.parentNode.removeChild(toast);
+        }
+      }, 3000);
+    }
+
+    // Open create team modal
+    createTeamBtn.addEventListener('click', () => {
+      document.getElementById('create-team-modal').style.display = 'flex';
+      document.getElementById('team-name-input').focus();
+    });
+
+    // Create a new team
+    function createNewTeam() {
+      const teamName = document.getElementById('team-name-input').value.trim();
+      if (teamName) {
+        closeModal('create-team-modal');
+        
+        if (selectedMembers.length > 0) {
+          const memberNames = selectedMembers.map(id => {
+            const member = allMembers.find(m => m.id === id);
+            return member.name;
+          });
+          
+          showToast(`Team "${teamName}" created successfully with ${selectedMembers.length + 1} members!`, 'success');
+        } else {
+          showToast(`Team "${teamName}" created successfully! You can now add members to your team.`, 'success');
+        }
+        
+        // Reset input
+        document.getElementById('team-name-input').value = '';
+      } else {
+        showToast('Please enter a team name.', 'info');
+      }
+    }
+
+    // Retry matching
+    retryBtn.addEventListener('click', () => {
+      if (retryCount > 0) {
+        document.getElementById('retry-remaining').textContent = retryCount;
+        document.getElementById('retry-modal').style.display = 'flex';
+      } else {
+        document.getElementById('no-retries-modal').style.display = 'flex';
+      }
+    });
+
+    function retryMatch() {
+      if (retryCount <= 0) return;
+      
+      retryCount--;
+      updateRetryCounter();
+      closeModal('retry-modal');
+      
+      // Get next 5 members that haven't been shown yet
+      currentMembers = getNextMembers(5);
+      
+      // Show retry result message
+      retryResult.style.display = 'flex';
+      retryResult.textContent = `Found ${currentMembers.length} new potential matches for you!`;
+      
+      // Hide the message after 3 seconds
+      setTimeout(() => {
+        retryResult.style.display = 'none';
+      }, 3000);
+      
+      renderMemberSuggestions();
+    }
+
+    // Update retry counter display
+    function updateRetryCounter() {
+      retryCountElement.textContent = retryCount;
+      
+      // Disable retry button if no retries left
+      if (retryCount === 0) {
+        retryBtn.disabled = true;
+        retryBtn.style.opacity = '0.7';
+        retryBtn.style.cursor = 'not-allowed';
+      }
+    }
+
+    // Close modal
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Mobile menu toggle
+    mobileToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      mobileToggle.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on links
+    navLinks.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        navLinks.classList.remove('active');
+        mobileToggle.classList.remove('active');
+      }
+    });
+
+    // Close modals when clicking outside
+    window.addEventListener('click', (e) => {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
+
+    // Initialize the page
+    initPage();
+  </script>
+</body>
+</html>
